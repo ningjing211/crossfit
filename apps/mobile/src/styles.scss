@@ -10,10 +10,35 @@ ion-content {
 ul.plain {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 ul.plain li {
-  margin: 0.75rem 0;
+  margin: 0;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--cf-line);
+}
+
+ul.plain a {
+  color: inherit;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.name-line {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.12rem;
+  line-height: 1.3;
+}
+
+.name-zh {
+  color: var(--cf-muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 img,

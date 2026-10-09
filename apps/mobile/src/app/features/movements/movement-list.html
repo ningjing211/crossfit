@@ -15,7 +15,13 @@
       <ul class="plain">
         @for (movement of current.movements; track movement.id) {
           <li>
-            <a [routerLink]="['/movements', movement.id]">{{ movement.name }}</a>
+            @let name = splitName(movement.name);
+            <a class="name-line" [routerLink]="['/movements', movement.id]">
+              <span>{{ name.english }}</span>
+              @if (name.chinese) {
+                <span class="name-zh">{{ name.chinese }}</span>
+              }
+            </a>
           </li>
         }
       </ul>

@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import type { Movement } from '@app/contracts';
 import { MovementRepository } from '@app/frontend/data-access';
-import { EmptyState, ErrorState, LoadingState } from '@app/frontend/ui';
+import { EmptyState, ErrorState, LoadingState, splitMovementName } from '@app/frontend/ui';
 
 type ListState =
   | { kind: 'loading' }
@@ -21,6 +21,10 @@ export class MovementList {
 
   constructor() {
     void this.reload();
+  }
+
+  protected splitName(name: string): { english: string; chinese: string } {
+    return splitMovementName(name);
   }
 
   protected reload(): void {

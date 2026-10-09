@@ -188,13 +188,14 @@ img {
   color: inherit;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 720px) {
   .move {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 6.25rem minmax(0, 1fr);
+    gap: 0.7rem 0.85rem;
   }
 
   .move-figure {
-    max-width: 11rem;
+    padding: 0.3rem;
   }
 
   .move:has(img.sequence) {
@@ -202,14 +203,47 @@ img {
   }
 
   .move-body:has(.move-main + .cue) {
+    display: contents;
+  }
+
+  .move:has(img.sequence) .move-body:has(.move-main + .cue) {
     display: block;
   }
 
-  .move-figure:has(img.sequence) {
-    max-width: none;
+  .move > .cue,
+  .move-body:has(.move-main + .cue) > .cue {
+    grid-column: 1 / -1;
+    margin-top: 0.2rem;
+  }
+
+  .move-name {
+    font-size: 1.05rem;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 0.4rem 1.15rem;
+    margin-top: 0.45rem;
+  }
+
+  .stats dd {
+    font-size: 1.08rem;
   }
 
   .class-hero h1 {
-    font-size: 1.85rem;
+    font-size: 1.7rem;
+  }
+
+  .block {
+    margin-top: 1.65rem;
+  }
+
+  .block h2 {
+    font-size: 1.2rem;
+  }
+
+  .scheme {
+    font-size: 0.92rem;
   }
 }
