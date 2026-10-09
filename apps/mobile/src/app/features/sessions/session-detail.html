@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/sessions" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ session()?.title || '課程' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if (state() === 'loading') {
+    <cf-loading message="正在讀取課表" />
+  } @else if (state() === 'error') {
+    <cf-error (retry)="retry()" />
+  } @else if (state() === 'missing') {
+    <p>找不到這堂課</p>
+  } @else if (session(); as current) {
+    <cf-class-detail [session]="current" [media]="media()" />
+  }
+</ion-content>

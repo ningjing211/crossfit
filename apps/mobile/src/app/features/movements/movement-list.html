@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>動作</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if (state(); as current) {
+    @if (current.kind === 'loading') {
+      <cf-loading message="正在讀取動作" />
+    } @else if (current.kind === 'empty') {
+      <cf-empty message="還沒有動作" />
+    } @else if (current.kind === 'error') {
+      <cf-error (retry)="reload()" />
+    } @else {
+      <ul class="plain">
+        @for (movement of current.movements; track movement.id) {
+          <li>
+            <a [routerLink]="['/movements', movement.id]">{{ movement.name }}</a>
+          </li>
+        }
+      </ul>
+    }
+  }
+</ion-content>

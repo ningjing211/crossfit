@@ -1,0 +1,115 @@
+<header class="class-hero">
+  <p class="class-kicker">{{ session().trainedOn }}</p>
+  <h1>{{ session().title.trim() || session().trainedOn }}</h1>
+</header>
+@for (block of session().blocks; track block.id; let blockIndex = $index) {
+  <section class="block">
+    <h2>{{ block.title }}</h2>
+    @if (block.scheme.trim()) {
+      <p class="scheme">{{ block.scheme }}</p>
+    }
+    @for (item of block.items; track item.id; let itemIndex = $index) {
+      <article class="move">
+        @if (mediaFor(item.movementId); as itemMedia) {
+          @if (itemMedia.imageUrl) {
+            <figure class="move-figure">
+              <img
+                [src]="itemMedia.imageUrl"
+                [alt]="item.name + ' 的連續動作'"
+                [class.sequence]="isSequence(itemMedia.imageUrl)"
+                [class.icon-card]="isIconCard(itemMedia.imageUrl)"
+              />
+            </figure>
+          }
+          @if (itemMedia.videoUrl) {
+            <video [src]="itemMedia.videoUrl" controls></video>
+          }
+        }
+        <div class="move-body">
+          <div class="move-title">
+            <span class="move-kicker">{{ itemLabel(blockIndex, itemIndex) }}</span>
+            <p class="move-name">{{ item.name }}</p>
+          </div>
+          @if (item.frequencyAndTime.trim() || item.sets.trim() || item.tempo.trim() || noteIsStat(item.note)) {
+            <dl class="stats">
+              @if (workAndRest(item.frequencyAndTime); as timing) {
+                <div>
+                  <dt>時間</dt>
+                  <dd>{{ timing.work }}</dd>
+                </div>
+                <div>
+                  <dt>休息</dt>
+                  <dd>{{ timing.rest }}</dd>
+                </div>
+              } @else if (item.frequencyAndTime.trim()) {
+                <div>
+                  <dt>次數</dt>
+                  <dd>{{ item.frequencyAndTime }}</dd>
+                </div>
+              }
+              @if (item.sets.trim()) {
+                <div>
+                  <dt>組數</dt>
+                  <dd>{{ item.sets }}</dd>
+                </div>
+              }
+              @if (item.tempo.trim()) {
+                <div>
+                  <dt>速度</dt>
+                  <dd>{{ item.tempo }}</dd>
+                </div>
+              }
+              @if (laterality(item.note); as sides) {
+                <div>
+                  <dt>左邊</dt>
+                  <dd>{{ sides.left }} 下</dd>
+                </div>
+                <div>
+                  <dt>右邊</dt>
+                  <dd>{{ sides.right }} 下</dd>
+                </div>
+              } @else if (noteIsStat(item.note)) {
+                <div>
+                  <dt>備註</dt>
+                  <dd>{{ item.note }}</dd>
+                </div>
+              }
+            </dl>
+          }
+          @if (item.note.trim() && !noteIsStat(item.note)) {
+            <p class="cue">{{ item.note }}</p>
+          }
+        </div>
+        @if (mediaFor(item.movementId); as creditMedia) {
+          @if (showsRepdbCredit(creditMedia.imageUrl)) {
+            <p class="media-credit"><a [href]="repdbHref">Exercise data by RepDB (repdb.co)</a></p>
+          }
+          @if (showsWorkoutGuideCredit(creditMedia.imageUrl)) {
+            <p class="media-credit">
+              <a [href]="workoutGuideHref">Bryl Lim</a>,
+              <a [href]="workoutGuideLicenseHref">CC BY-SA 4.0</a>
+              （依 <a [href]="everkineticHref">Everkinetic</a> 延伸；線條改為深色）
+            </p>
+          }
+        }
+      </article>
+    }
+  </section>
+}
+@if (overviewUrl(); as src) {
+  <section class="block">
+    <h2>整堂課</h2>
+    <img class="overview" [src]="src" [alt]="(session().title.trim() || session().trainedOn) + ' 的連續動作'" />
+  </section>
+}
+@if (diaryLines(session()); as lines) {
+  @if (lines.length) {
+    <section class="block">
+      <h2>日記</h2>
+      @for (line of lines; track line.label) {
+        <h3>{{ line.label }}</h3>
+        <p>{{ line.value }}</p>
+      }
+    </section>
+  }
+}

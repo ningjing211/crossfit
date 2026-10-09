@@ -1,0 +1,18 @@
+{
+  "name": "crossfit-functions",
+  "private": true,
+  "main": "lib/index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.6.0",
+    "firebase-functions": "^7.0.5"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2"
+  }
+}

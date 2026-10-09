@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/movements" text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ movement()?.name || '動作' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if (state() === 'loading') {
+    <cf-loading message="正在讀取動作" />
+  } @else if (state() === 'error') {
+    <cf-error (retry)="retry()" />
+  } @else if (state() === 'missing') {
+    <p>找不到這個動作</p>
+  } @else if (movement(); as current) {
+    <cf-movement-detail [movement]="current" [imageUrl]="imageUrl()" [videoUrl]="videoUrl()" />
+  }
+</ion-content>

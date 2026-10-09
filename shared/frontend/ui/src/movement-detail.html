@@ -1,0 +1,33 @@
+<header class="class-hero">
+  <h1>{{ movement().name }}</h1>
+</header>
+@if (imageUrl(); as src) {
+  <figure class="movement-figure">
+    <img [src]="src" [alt]="movement().name" />
+    @if (showsRepdbCredit(src)) {
+      <figcaption class="media-credit"><a [href]="repdbHref">Exercise data by RepDB (repdb.co)</a></figcaption>
+    }
+    @if (showsWorkoutGuideCredit(src)) {
+      <figcaption class="media-credit">
+        <a [href]="workoutGuideHref">Bryl Lim</a>,
+        <a [href]="workoutGuideLicenseHref">CC BY-SA 4.0</a>
+        （依 <a [href]="everkineticHref">Everkinetic</a> 延伸；線條改為深色）
+      </figcaption>
+    }
+  </figure>
+}
+@if (videoUrl(); as src) {
+  <video [src]="src" controls></video>
+}
+@if (movement().cues.trim()) {
+  <section class="block">
+    <h2>施作要點</h2>
+    <p class="cue">{{ movement().cues }}</p>
+  </section>
+}
+@if (movement().execution.trim()) {
+  <section class="block">
+    <h2>施作方式</h2>
+    <p class="cue">{{ movement().execution }}</p>
+  </section>
+}

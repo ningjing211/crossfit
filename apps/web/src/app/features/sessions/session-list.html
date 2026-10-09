@@ -1,0 +1,21 @@
+<h1>課程</h1>
+@if (state(); as current) {
+  @if (current.kind === 'loading') {
+    <cf-loading message="正在讀取課表" />
+  } @else if (current.kind === 'empty') {
+    <cf-empty message="還沒有上課紀錄" />
+  } @else if (current.kind === 'error') {
+    <cf-error (retry)="reload()" />
+  } @else {
+    <ul class="plain">
+      @for (session of current.sessions; track session.id) {
+        <li>
+          <a [routerLink]="['/sessions', session.id]">{{ heading(session) }}</a>
+          @if (session.title.trim()) {
+            <span>{{ session.trainedOn }}</span>
+          }
+        </li>
+      }
+    </ul>
+  }
+}

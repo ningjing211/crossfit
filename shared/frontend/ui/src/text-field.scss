@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+input,
+textarea {
+  font: inherit;
+  padding: 0.45rem 0.5rem;
+}

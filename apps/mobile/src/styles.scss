@@ -1,0 +1,22 @@
+html,
+body {
+  height: 100%;
+}
+
+ion-content {
+  --background: var(--cf-surface);
+}
+
+ul.plain {
+  list-style: none;
+  padding: 0;
+}
+
+ul.plain li {
+  margin: 0.75rem 0;
+}
+
+img,
+video {
+  max-width: 100%;
+}

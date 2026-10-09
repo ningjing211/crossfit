@@ -1,0 +1,181 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "npm"
+  },
+  "newProjectRoot": "apps",
+  "projects": {
+    "web": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/web",
+      "sourceRoot": "apps/web/src",
+      "prefix": "web",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "apps/web/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "apps/web/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "outputPath": {
+              "base": "dist/apps/web",
+              "browser": "browser"
+            },
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/web/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "shared/frontend/media",
+                "output": "media"
+              }
+            ],
+            "styles": [
+              "shared/frontend/styles/src/styles.scss",
+              "apps/web/src/styles.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "web:build:production"
+            },
+            "development": {
+              "buildTarget": "web:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    },
+    "mobile": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/mobile",
+      "sourceRoot": "apps/mobile/src",
+      "prefix": "mobile",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "apps/mobile/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "apps/mobile/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "outputPath": {
+              "base": "www",
+              "browser": ""
+            },
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/mobile/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "shared/frontend/media",
+                "output": "media"
+              }
+            ],
+            "styles": [
+              "@ionic/angular/css/core.css",
+              "@ionic/angular/css/normalize.css",
+              "@ionic/angular/css/structure.css",
+              "@ionic/angular/css/typography.css",
+              "@ionic/angular/css/display.css",
+              "@ionic/angular/css/padding.css",
+              "@ionic/angular/css/float-elements.css",
+              "@ionic/angular/css/text-alignment.css",
+              "@ionic/angular/css/text-transformation.css",
+              "@ionic/angular/css/flex-utils.css",
+              "shared/frontend/styles/src/styles.scss",
+              "apps/mobile/src/styles.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2MB",
+                  "maximumError": "4MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 4202
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "mobile:build:production"
+            },
+            "development": {
+              "buildTarget": "mobile:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    }
+  }
+}

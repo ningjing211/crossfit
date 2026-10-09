@@ -1,0 +1,52 @@
+{
+  "name": "crossfit",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start:web": "ng serve web",
+    "start:mobile": "ng serve mobile",
+    "build:web": "ng build web",
+    "build:mobile": "ng build mobile",
+    "build:functions": "npm --prefix functions run build",
+    "test:web": "ng test web --watch=false",
+    "test:mobile": "ng test mobile --watch=false",
+    "test:unit": "vitest run --config tests/vitest.config.ts",
+    "check:boundaries": "node scripts/check-boundaries.mjs",
+    "cap:sync": "cap sync",
+    "emulators": "firebase emulators:start --config firebase.emulator.json --project demo-crossfit",
+    "check": "npm run check:boundaries && npm run build:web && npm run build:mobile && npm run cap:sync"
+  },
+  "private": true,
+  "packageManager": "npm@11.6.2",
+  "dependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/ios": "^8.5.3",
+    "@capacitor/keyboard": "^8.0.6",
+    "@capacitor/status-bar": "^8.0.4",
+    "@ionic/angular": "^9.0.7",
+    "firebase": "^12.19.0",
+    "ionicons": "^8.1.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.16.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.2.26",
+    "@angular/cli": "^21.2.26",
+    "@angular/compiler-cli": "^21.2.0",
+    "@capacitor/cli": "^8.5.3",
+    "firebase-tools": "^15.33.0",
+    "jsdom": "^28.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
+  }
+}
