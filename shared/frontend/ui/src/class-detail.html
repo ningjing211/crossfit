@@ -1,6 +1,5 @@
 <header class="class-hero">
   <p class="class-kicker">{{ session().trainedOn }}</p>
-  <h1>{{ session().title.trim() || session().trainedOn }}</h1>
 </header>
 @for (block of session().blocks; track block.id; let blockIndex = $index) {
   <section class="block">

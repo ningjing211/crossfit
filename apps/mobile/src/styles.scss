@@ -7,6 +7,22 @@ ion-content {
   --background: var(--cf-surface);
 }
 
+ion-tab-bar {
+  --background: var(--cf-card);
+  --border: 1px solid var(--cf-line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+ion-tab-button {
+  --color: var(--cf-muted);
+  --color-selected: var(--cf-accent);
+  min-height: 44px;
+}
+
+ion-tab-button.tab-selected {
+  font-weight: 700;
+}
+
 ul.plain {
   list-style: none;
   padding: 0;
@@ -20,10 +36,18 @@ ul.plain li {
 }
 
 ul.plain a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   color: inherit;
   font-weight: 650;
   letter-spacing: -0.02em;
   text-decoration: none;
+}
+
+ul.plain a.name-line {
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .name-line {

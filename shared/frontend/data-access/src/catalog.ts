@@ -169,8 +169,9 @@ export const sessions: Session[] = [
       },
       {
         id: 'block-emom',
-        title: 'EMOM10 循環頻率',
-        scheme: 'Every Minute on the Minute for 10 Minutes. Rest remaining of the minute.',
+        title:
+          'EMOM 10（循環頻率: 在 10 分鐘內，每到新的一分鐘開始時，就完成規定次數或時間的動作，剩下的時間就是該分鐘的休息時間。）',
+        scheme: '',
         items: [
           {
             id: 'emom-1',

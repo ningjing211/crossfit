@@ -8,7 +8,7 @@ describe('October 7 session', () => {
     expect(october7?.blocks.map((block) => block.title)).toEqual([
       'Warm-Up 暖身',
       'Movement Prep 主要訓練',
-      'EMOM10 循環頻率',
+      'EMOM 10（循環頻率: 在 10 分鐘內，每到新的一分鐘開始時，就完成規定次數或時間的動作，剩下的時間就是該分鐘的休息時間。）',
     ]);
   });
 
@@ -30,7 +30,8 @@ describe('October 7 session', () => {
     expect(movements.find((movement) => movement.id === 'single-arm-row')?.cues).toContain(
       '手肘沿身體側邊向後拉',
     );
-    expect(emom?.scheme).toContain('Rest remaining of the minute');
+    expect(emom?.scheme).toBe('');
+    expect(emom?.title).toContain('剩下的時間就是該分鐘的休息時間');
     expect(emom?.items[0]?.sets).toBe('Sets 1-5');
     expect(emom?.items[1]?.note).toBe('3/3');
   });

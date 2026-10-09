@@ -1,10 +1,42 @@
 <div class="layout">
   <header class="top">
-    <p class="brand">CrossFit Diary</p>
-    <nav>
-      <a routerLink="/">課程</a>
-      <a routerLink="/movements">動作</a>
+    <p class="brand">
+      <span class="logo"><img src="logo.jpg" alt="" /></span>
+      CrossFit Diary
+    </p>
+    <button
+      #menuButton
+      type="button"
+      class="menu-button"
+      [attr.aria-expanded]="open()"
+      aria-controls="site-menu"
+      (click)="toggle()"
+    >
+      <span class="menu-icon" aria-hidden="true">
+        <svg class="icon-close" [class.is-shown]="open()" viewBox="0 0 24 24" width="22" height="22">
+          <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <svg class="icon-bars" [class.is-shown]="!open()" viewBox="0 0 24 24" width="22" height="22">
+          <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </span>
+      {{ open() ? '關閉' : '選單' }}
+    </button>
+    <nav
+      #siteMenu
+      id="site-menu"
+      class="site-nav"
+      aria-label="主要"
+      [class.open]="open()"
+      [attr.inert]="narrow() && !open() ? '' : null"
+      (focusout)="onMenuFocusOut($event)"
+    >
+      <a routerLink="/" [class.is-current]="section() === 'sessions'" (click)="close()">課程</a>
+      <a routerLink="/movements" [class.is-current]="section() === 'movements'" (click)="close()">動作</a>
     </nav>
   </header>
+  @if (narrow() && open()) {
+    <button type="button" class="menu-backdrop" aria-label="關閉選單" (click)="close()"></button>
+  }
   <router-outlet />
-  </div>
+</div>

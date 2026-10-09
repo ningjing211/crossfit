@@ -13,32 +13,46 @@ body {
 }
 
 .top {
+  position: relative;
+  z-index: 2;
   display: flex;
-  gap: 1.5rem;
-  align-items: baseline;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1.75rem;
-  padding-bottom: 0.9rem;
+  padding-bottom: 0.35rem;
   border-bottom: 1px solid var(--cf-line);
 }
 
-.top nav {
-  display: flex;
-  gap: 1rem;
-}
-
-.top a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.top a:hover {
-  text-decoration: underline;
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--cf-accent);
+  outline-offset: 3px;
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   margin: 0;
   font-weight: 700;
   letter-spacing: -0.03em;
+}
+
+.logo {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  overflow: hidden;
+  border-radius: 50%;
+  flex: none;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
 }
 
 fieldset {
@@ -74,10 +88,19 @@ ul.plain li {
 }
 
 ul.plain a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   color: inherit;
   font-weight: 650;
   letter-spacing: -0.02em;
   text-decoration: none;
+  cursor: pointer;
+}
+
+ul.plain a.name-line {
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .name-line {
