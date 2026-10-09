@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { sessions } from '../../shared/frontend/data-access/src/catalog';
+import { movements, sessions } from '../../shared/frontend/data-access/src/catalog';
 
 const october7 = sessions[0];
 
 describe('October 7 session', () => {
   it('keeps warm-up, movement prep, and the timed piece on one class', () => {
     expect(october7?.blocks.map((block) => block.title)).toEqual([
-      'Warm-Up',
-      'Movement Prep',
-      'EMOM10',
+      'Warm-Up 暖身',
+      'Movement Prep 主要訓練',
+      'EMOM10 循環頻率',
     ]);
   });
 
@@ -24,6 +24,12 @@ describe('October 7 session', () => {
       '40 秒，休息 20 秒',
     ]);
     expect(row?.note).toBe('5/5');
+    expect(movements.find((movement) => movement.id === 'shoulder-taps')?.cues).toContain(
+      '單手碰對側肩膀',
+    );
+    expect(movements.find((movement) => movement.id === 'single-arm-row')?.cues).toContain(
+      '手肘沿身體側邊向後拉',
+    );
     expect(emom?.scheme).toContain('Rest remaining of the minute');
     expect(emom?.items[0]?.sets).toBe('Sets 1-5');
     expect(emom?.items[1]?.note).toBe('3/3');

@@ -66,15 +66,15 @@ export class SessionDetail {
         try {
           const movement = await this.movements.get(id);
           if (!movement) {
-            return [id, { imageUrl: null, videoUrl: null }] as const;
+            return [id, { imageUrl: null, videoUrl: null, cues: '' }] as const;
           }
           const [imageUrl, videoUrl] = await Promise.all([
             this.movements.mediaUrl(movement.imagePath),
             this.movements.mediaUrl(movement.videoPath),
           ]);
-          return [id, { imageUrl, videoUrl }] as const;
+          return [id, { imageUrl, videoUrl, cues: movement.cues }] as const;
         } catch {
-          return [id, { imageUrl: null, videoUrl: null }] as const;
+          return [id, { imageUrl: null, videoUrl: null, cues: '' }] as const;
         }
       }),
     );

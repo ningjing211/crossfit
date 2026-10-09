@@ -26,6 +26,7 @@
           }
         }
         <div class="move-body">
+          <div class="move-main">
           <div class="move-title">
             <span class="move-kicker">{{ itemLabel(blockIndex, itemIndex) }}</span>
             <p class="move-name">{{ item.name }}</p>
@@ -79,6 +80,14 @@
           @if (item.note.trim() && !noteIsStat(item.note)) {
             <p class="cue">{{ item.note }}</p>
           }
+          </div>
+          @if (coachingCues(item); as lines) {
+            <div class="cue">
+              @for (line of lines; track line) {
+                <p>{{ line }}</p>
+              }
+            </div>
+          }
         </div>
         @if (mediaFor(item.movementId); as creditMedia) {
           @if (showsRepdbCredit(creditMedia.imageUrl)) {
@@ -98,7 +107,7 @@
 }
 @if (overviewUrl(); as src) {
   <section class="block">
-    <h2>整堂課</h2>
+    <h2>Entire Class 整堂課</h2>
     <img class="overview" [src]="src" [alt]="(session().title.trim() || session().trainedOn) + ' 的連續動作'" />
   </section>
 }

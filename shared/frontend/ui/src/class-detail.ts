@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
-import type { Session } from '@app/contracts';
+import type { Session, SessionItem } from '@app/contracts';
 import { sessionOverviews } from '@app/frontend/data-access';
 
 export interface ClassMedia {
   imageUrl: string | null;
   videoUrl: string | null;
+  cues: string;
 }
 
 @Component({
@@ -29,11 +30,15 @@ export class ClassDetail {
   }
 
   protected isSequence(url: string | null): boolean {
-    return !!url && (url.includes('/media/prep/') || url.includes('/media/single-arm-muscle-clean.jpg'));
+    return !!url && (url.includes('/media/prep/') || this.isEmomSquare(url));
   }
 
   protected isIconCard(url: string | null): boolean {
-    return !!url?.includes('/media/single-arm-muscle-clean.jpg');
+    return this.isEmomSquare(url);
+  }
+
+  private isEmomSquare(url: string | null): boolean {
+    return !!url && (url.includes('/media/single-arm-muscle-clean.jpg') || url.includes('/media/single-arm-push-press.jpg'));
   }
 
   protected overviewUrl(): string | null {
@@ -66,6 +71,17 @@ export class ClassDetail {
   protected noteIsStat(note: string): boolean {
     const value = note.trim();
     return value.length > 0 && value.length <= 12 && !value.includes(' ');
+  }
+
+  protected coachingCues(item: SessionItem): string[] | null {
+    const cues = this.mediaFor(item.movementId)?.cues.trim() ?? '';
+    if (!cues || cues === item.note.trim()) {
+      return null;
+    }
+    const lines = (cues.includes('\n') ? cues.split('\n') : cues.split(/(?=[①②③④⑤])/))
+      .map((line) => line.trim())
+      .filter(Boolean);
+    return lines.length ? lines : null;
   }
 
   protected mediaFor(movementId: string | null): ClassMedia | null {
